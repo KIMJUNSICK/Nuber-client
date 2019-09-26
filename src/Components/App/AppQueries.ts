@@ -7,3 +7,7 @@ export const IS_LOGGED_IN = gql`
     }
   }
 `;
+
+// @client
+// not send to API, send to cache
+// inform Local state of Whether or not Login

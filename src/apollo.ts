@@ -1,11 +1,12 @@
 import ApolloClient, { Operation } from "apollo-boost";
 
+// Local state
 const client = new ApolloClient({
   clientState: {
     defaults: {
       // the one below is cache
       auth: {
-        _typename: "Auth",
+        __typename: "Auth",
         isLoggedIn: Boolean(localStorage.getItem("jwt"))
       }
     },
@@ -28,10 +29,8 @@ const client = new ApolloClient({
           localStorage.removeItem("jwt");
           cache.writeData({
             data: {
-              auth: {
-                __typename: "Auth",
-                isLoggedIn: false
-              }
+              __typename: "Auth",
+              isLoggedIn: false
             }
           });
           return null;

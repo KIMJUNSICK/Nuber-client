@@ -24,19 +24,17 @@ const AppPresenter: React.SFC<IProps> = ({ isLoggedIn }) => (
   </BrowserRouter>
 );
 
-const LoggedOutRoutes: React.SFC = () => {
-  // tslint:disable-next-line: no-unused-expression
+const LoggedOutRoutes: React.SFC = () => (
   <Switch>
     <Route path={"/"} exact={true} component={OutHome} />
     <Route path={"/phone-login"} component={PhoneLogin} />
     <Route path={"/verify-phone/:number"} component={VerifyPhone} />
     <Route path={"/social-login"} component={SocialLogin} />
     <Redirect from={"*"} to={"/"} />
-  </Switch>;
-};
+  </Switch>
+);
 
-const LoggedInRoutes: React.SFC = (): any => {
-  // tslint:disable-next-line: no-unused-expression
+const LoggedInRoutes: React.SFC = () => (
   <Switch>
     <Route path={"/"} exact={true} component={Home} />
     <Route path={"/ride"} exact={true} component={Ride} />
@@ -46,8 +44,8 @@ const LoggedInRoutes: React.SFC = (): any => {
     <Route path={"/add-place"} exact={true} component={AddPlace} />
     <Route path={"/find-address"} exact={true} component={FindAddress} />
     <Redirect from={"*"} to={"/"} />
-  </Switch>;
-};
+  </Switch>
+);
 
 AppPresenter.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired

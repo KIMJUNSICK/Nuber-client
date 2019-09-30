@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "build/dist",
-    "module": "esnext",
+    "module": "commonjs",
     "target": "es5",
     "lib": ["es6", "dom", "esnext.asynciterable"],
     "sourceMap": true,
@@ -18,12 +18,7 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules",
@@ -33,6 +28,5 @@
     "webpack",
     "jest",
     "src/setupTests.ts"
-  ],
-  "include": ["src"]
+  ]
 }

@@ -24,6 +24,7 @@ Client for the (N)Uber Clone Course on Nomad Academy. ReactJS, Apollo, Typescrip
 ### Routes & Router
 
 - [x] Plan the Routes
+- [x] Routes and Router
 
 ---
 

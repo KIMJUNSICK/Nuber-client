@@ -53,7 +53,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const PhoneLoginPresenter = () => {
+const PhoneLoginPresenter = () => (
   <Container>
     <Helmet>
       <title>Phone Login | Number</title>
@@ -81,7 +81,7 @@ const PhoneLoginPresenter = () => {
         </svg>
       </Button>
     </Form>
-  </Container>;
-};
+  </Container>
+);
 
 export default PhoneLoginPresenter;

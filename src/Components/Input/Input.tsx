@@ -22,6 +22,25 @@ const Container = styled.input`
   }
 `;
 
-const Input = ({ placeholder }) => <Container placeholder={placeholder} />;
+interface IProps {
+  placeholder?: string;
+  required?: boolean;
+  type: string;
+  value: any;
+}
+
+const Input: React.FunctionComponent<IProps> = ({
+  placeholder = "",
+  type = "text",
+  required = true,
+  value
+}) => (
+  <Container
+    placeholder={placeholder}
+    type={type}
+    required={required}
+    value={value}
+  />
+);
 
 export default Input;

@@ -1,12 +1,13 @@
 import { gql } from "apollo-boost";
 
-// first line is for apollo
-// second for graphql
 export const PHONE_SIGN_IN = gql`
   mutation startPhoneVerification($phoneNumber: String!) {
-    startPhoneVerification(phoneNumber: $phoneNumber) {
+    StartPhoneVerification(phoneNumber: $phoneNumber) {
       ok
       error
     }
   }
 `;
+
+// first line is for apollo
+// second for graphql

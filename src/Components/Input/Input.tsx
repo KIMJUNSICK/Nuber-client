@@ -25,21 +25,27 @@ const Container = styled.input`
 interface IProps {
   placeholder?: string;
   required?: boolean;
-  type: string;
+  type?: string;
   value: any;
+  name?: string;
+  onChange: any;
 }
 
 const Input: React.FunctionComponent<IProps> = ({
   placeholder = "",
   type = "text",
   required = true,
-  value
+  value,
+  name = "",
+  onChange
 }) => (
   <Container
     placeholder={placeholder}
     type={type}
     required={required}
     value={value}
+    name={name}
+    onChange={onChange}
   />
 );
 

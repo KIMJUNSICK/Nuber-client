@@ -16,7 +16,7 @@ class PhoneLoginContainer extends React.Component<
   // state have prerequisite that data of state is changed at any time
   public state = {
     countryCode: "+82",
-    phoneNumber: "010-0000-0000"
+    phoneNumber: ""
   };
 
   public render() {
@@ -25,9 +25,27 @@ class PhoneLoginContainer extends React.Component<
       <PhoneLoginPresenter
         countryCode={countryCode}
         phoneNumber={phoneNumber}
+        onInputChange={this.onInputChange}
+        onSubmit={this.onSubmit}
       />
     );
   }
+
+  public onInputChange: React.ChangeEventHandler<
+    HTMLInputElement | HTMLSelectElement
+  > = event => {
+    const {
+      target: { name, value }
+    } = event;
+    this.setState({
+      [name]: value
+    } as any);
+  };
+
+  public onSubmit: React.FormEventHandler<HTMLFormElement> = event => {
+    event.preventDefault();
+    console.log(this.state);
+  };
 }
 
 export default PhoneLoginContainer;

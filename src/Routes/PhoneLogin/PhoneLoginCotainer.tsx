@@ -1,5 +1,5 @@
 import React from "react";
-import { Mutation, MutationUpdaterFn } from "react-apollo";
+import { Mutation } from "react-apollo";
 import { RouteComponentProps } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
@@ -39,7 +39,19 @@ class PhoneLoginContainer extends React.Component<
         variables={{
           phoneNumber: `${countryCode}${phoneNumber}`
         }}
-        update={this.afterSubmit}
+        // for using mutation's reponse
+        // error occured on Network => already handle error on network
+        // not reach the client
+        onCompleted={data => {
+          const {
+            StartPhoneVerification: { ok, error }
+          } = data;
+          if (ok) {
+            return;
+          } else {
+            toast.error(error);
+          }
+        }}
       >
         {(mutation, { loading }) => {
           const onSubmit: React.FormEventHandler<HTMLFormElement> = event => {
@@ -53,7 +65,6 @@ class PhoneLoginContainer extends React.Component<
               toast.error("Please write a valid phoneNumber");
             }
           };
-
           return (
             <PhoneLoginPresenter
               countryCode={countryCode}
@@ -77,15 +88,6 @@ class PhoneLoginContainer extends React.Component<
     this.setState({
       [name]: value
     } as any);
-  };
-
-  // for using mutation's reponse
-  public afterSubmit: MutationUpdaterFn = (cache, data) => {
-    if (data) {
-      // send to confirmVerificationKey page
-    } else {
-      toast.error("Please write a valid phoneNumber");
-    }
   };
 }
 

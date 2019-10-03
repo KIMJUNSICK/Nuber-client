@@ -1,7 +1,11 @@
 import React from "react";
-import { Mutation } from "react-apollo";
+import { Mutation, MutationUpdaterFn } from "react-apollo";
 import { RouteComponentProps } from "react-router-dom";
 import { toast } from "react-toastify";
+import {
+  startPhoneVerification,
+  startPhoneVerificationVariables
+} from "src/types/api";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
 import { PHONE_SIGN_IN } from "./PhoneQueries.queries";
 
@@ -11,12 +15,11 @@ interface IState {
   phoneNumber: string;
 }
 
-interface IMutationInterface {
-  phoneNumber: string;
-}
-
 // Mutation<data that mutation return, variables>
-class PhoneSignInMutation extends Mutation<any, IMutationInterface> {}
+class PhoneSignInMutation extends Mutation<
+  startPhoneVerification,
+  startPhoneVerificationVariables
+> {}
 
 class PhoneLoginContainer extends React.Component<
   RouteComponentProps<any>,
@@ -36,16 +39,16 @@ class PhoneLoginContainer extends React.Component<
         variables={{
           phoneNumber: `${countryCode}${phoneNumber}`
         }}
+        update={this.afterSubmit}
       >
-        {(mutationFtn, { loading }) => {
+        {(mutation, { loading }) => {
           const onSubmit: React.FormEventHandler<HTMLFormElement> = event => {
             event.preventDefault();
             const isValid = /^\+[1-9]{1}[0-9]{7,12}$/.test(
               `${countryCode}${phoneNumber}`
             );
-            console.log(isValid);
             if (isValid) {
-              mutationFtn(); // run API in backend? mutationFtn = startPhoneVerification()?
+              mutation(); // run API in backend? mutationFtn = startPhoneVerification()?
             } else {
               toast.error("Please write a valid phoneNumber");
             }
@@ -74,6 +77,15 @@ class PhoneLoginContainer extends React.Component<
     this.setState({
       [name]: value
     } as any);
+  };
+
+  // for using mutation's reponse
+  public afterSubmit: MutationUpdaterFn = (cache, data) => {
+    if (data) {
+      // send to confirmVerificationKey page
+    } else {
+      toast.error("Please write a valid phoneNumber");
+    }
   };
 }
 

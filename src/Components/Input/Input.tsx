@@ -29,6 +29,7 @@ interface IProps {
   value: any;
   name?: string;
   onChange: any;
+  className?: string;
 }
 
 const Input: React.FunctionComponent<IProps> = ({
@@ -37,7 +38,8 @@ const Input: React.FunctionComponent<IProps> = ({
   required = true,
   value,
   name = "",
-  onChange
+  onChange,
+  className
 }) => (
   <Container
     placeholder={placeholder}
@@ -46,6 +48,7 @@ const Input: React.FunctionComponent<IProps> = ({
     value={value}
     name={name}
     onChange={onChange}
+    className={className}
   />
 );
 

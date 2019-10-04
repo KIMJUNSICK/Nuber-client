@@ -32,6 +32,7 @@ class PhoneLoginContainer extends React.Component<
   };
 
   public render() {
+    const { history } = this.props;
     const { countryCode, phoneNumber } = this.state;
     return (
       <PhoneSignInMutation
@@ -56,11 +57,17 @@ class PhoneLoginContainer extends React.Component<
         {(mutation, { loading }) => {
           const onSubmit: React.FormEventHandler<HTMLFormElement> = event => {
             event.preventDefault();
-            const isValid = /^\+[1-9]{1}[0-9]{7,12}$/.test(
-              `${countryCode}${phoneNumber}`
-            );
+            const phone = `${countryCode}${phoneNumber}`;
+            const isValid = /^\+[1-9]{1}[0-9]{7,12}$/.test(phone);
             if (isValid) {
-              mutation(); // run API in backend? mutationFtn = startPhoneVerification()?
+              // mutation(); // run API in backend? mutationFtn = startPhoneVerification()?
+              // send data to other page, not use url because of security.
+              history.push({
+                pathname: "/verify-phone",
+                state: {
+                  phone
+                }
+              });
             } else {
               toast.error("Please write a valid phoneNumber");
             }

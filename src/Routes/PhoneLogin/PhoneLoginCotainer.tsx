@@ -47,8 +47,18 @@ class PhoneLoginContainer extends React.Component<
           const {
             StartPhoneVerification: { ok, error }
           } = data;
+          const phone = `${countryCode}${phoneNumber}`;
           if (ok) {
-            return;
+            // send data to other page, not use url because of security.
+            toast.success("SMS Sent! Redirecting you...");
+            setTimeout(() => {
+              history.push({
+                pathname: "/verify-phone",
+                state: {
+                  phone
+                }
+              });
+            }, 2000);
           } else {
             toast.error(error);
           }
@@ -60,14 +70,7 @@ class PhoneLoginContainer extends React.Component<
             const phone = `${countryCode}${phoneNumber}`;
             const isValid = /^\+[1-9]{1}[0-9]{7,12}$/.test(phone);
             if (isValid) {
-              // mutation(); // run API in backend? mutationFtn = startPhoneVerification()?
-              // send data to other page, not use url because of security.
-              history.push({
-                pathname: "/verify-phone",
-                state: {
-                  phone
-                }
-              });
+              mutation(); // run API in backend? mutationFtn = startPhoneVerification()?
             } else {
               toast.error("Please write a valid phoneNumber");
             }

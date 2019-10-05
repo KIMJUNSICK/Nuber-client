@@ -7,7 +7,7 @@ import {
   startPhoneVerificationVariables
 } from "src/types/api";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
-import { PHONE_SIGN_IN } from "./PhoneQueries.queries";
+import { PHONE_SIGN_IN } from "./PhoneQueries";
 
 // React.Componenet<Props, State>
 interface IState {

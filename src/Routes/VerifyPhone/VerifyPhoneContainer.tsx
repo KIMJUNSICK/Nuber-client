@@ -1,27 +1,47 @@
 import React from "react";
+import { Mutation } from "react-apollo";
 import { RouteComponentProps } from "react-router-dom";
+import { verifyPhone, verifyPhoneVariables } from "src/types/api";
 import VerifyPhonePresenter from "./VerifyPhonePresenter";
+import { VERIFY_PHONE } from "./VerifyPhoneQueries";
 
 interface IState {
   key: string;
+  phoneNumber: string;
 }
 
 interface IProps extends RouteComponentProps<any> {}
 
+class VerifyPhoneMutation extends Mutation<verifyPhone, verifyPhoneVariables> {}
+
 class VerifyPhoneContainer extends React.Component<IProps, IState> {
-  public state = {
-    key: ""
-  };
   constructor(props: IProps) {
     super(props);
     console.log(props);
     if (!props.location.state) {
       props.history.push("/");
     }
+    this.state = {
+      key: "",
+      phoneNumber: props.location.state.phone
+    };
   }
+
   public render() {
-    const { key } = this.state;
-    return <VerifyPhonePresenter onChange={this.onInputChange} key={key} />;
+    const { key, phoneNumber } = this.state;
+
+    return (
+      <VerifyPhoneMutation
+        mutation={VERIFY_PHONE}
+        variables={{ key, phoneNumber }}
+      >
+        {(mutation, { loading }) => {
+          return (
+            <VerifyPhonePresenter onChange={this.onInputChange} key={key} />
+          );
+        }}
+      </VerifyPhoneMutation>
+    );
   }
 
   public onInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {

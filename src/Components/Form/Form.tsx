@@ -1,16 +1,24 @@
 import React from "react";
 
 interface IProps {
-  onSubmit: any;
+  submitFn: any;
+  className?: string;
 }
 
-const Form: React.FunctionComponent<IProps> = ({ onSubmit }) => (
+const Form: React.FunctionComponent<IProps> = ({
+  submitFn,
+  className,
+  children
+}) => (
   <form
+    className={className}
     onSubmit={e => {
       e.preventDefault();
-      onSubmit();
+      submitFn();
     }}
-  />
+  >
+    {children}
+  </form>
 );
 
 export default Form;

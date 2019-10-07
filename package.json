@@ -29,6 +29,7 @@
     "react-helmet": "^5.2.1",
     "react-router-dom": "^5.1.1",
     "react-scripts-ts": "^3.1.0",
+    "react-sidebar": "^3.0.2",
     "react-toastify": "^5.4.0",
     "remove": "^0.1.5",
     "styled-components": "^4.4.0",

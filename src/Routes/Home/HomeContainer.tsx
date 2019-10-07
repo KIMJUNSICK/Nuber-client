@@ -1,15 +1,16 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
 import HomePresenter from "./HomePresenter";
-
-// type
-// state
-// Ftn
+import { Query } from "react-apollo";
+import { userProfile } from "src/types/api";
+import { USER_PROFILE } from "src/sharedQueries";
 
 interface IState {
   isMenuOpened: boolean;
 }
 interface IProps extends RouteComponentProps<any> {}
+
+class ProfileQuery extends Query<userProfile> {}
 
 class HomeContainer extends React.Component<IProps, IState> {
   public state = {
@@ -19,7 +20,12 @@ class HomeContainer extends React.Component<IProps, IState> {
   public render() {
     const { isMenuOpened } = this.state;
     return (
-      <HomePresenter isMenuOpened={isMenuOpened} toggleMenu={this.toggleMenu} />
+      <ProfileQuery query={USER_PROFILE}>
+        <HomePresenter
+          isMenuOpened={isMenuOpened}
+          toggleMenu={this.toggleMenu}
+        />
+      </ProfileQuery>
     );
   }
 

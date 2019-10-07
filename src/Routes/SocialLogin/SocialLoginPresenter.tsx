@@ -1,8 +1,9 @@
 import React from "react";
+import { MutationFn } from "react-apollo";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import Helmet from "react-helmet";
 import BackArrow from "../../Components/BackArrow";
 import styled from "../../typed-components";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 const Container = styled.div`
   margin-top: 30px;
@@ -29,7 +30,13 @@ const BackArrowExtended = styled(BackArrow)`
   left: 20px;
 `;
 
-const SocialLoginPresenter = () => (
+interface IProps {
+  loginCallback: MutationFn;
+}
+
+const SocialLoginPresenter: React.FunctionComponent<IProps> = ({
+  loginCallback
+}) => (
   <Container>
     <Helmet>
       <title>Social Login |Nuber</title>
@@ -40,8 +47,8 @@ const SocialLoginPresenter = () => (
       appId="3150524491684630"
       autoLoad={true}
       fields="name,email,picture"
-      callback={null}
-      render={renderProps => {
+      callback={loginCallback}
+      render={renderProps => (
         <Link onClick={renderProps.onClick}>
           <Icon>
             <svg
@@ -55,8 +62,8 @@ const SocialLoginPresenter = () => (
             </svg>
           </Icon>
           Facebook
-        </Link>;
-      }}
+        </Link>
+      )}
     />
   </Container>
 );

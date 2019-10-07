@@ -7,13 +7,15 @@ import styled from "../../typed-components";
 interface IProps {
   isMenuOpened: boolean;
   toggleMenu: () => void;
+  loading: boolean;
 }
 
 const Container = styled.div``;
 
 const HomePresenter: React.FunctionComponent<IProps> = ({
   isMenuOpened,
-  toggleMenu
+  toggleMenu,
+  loading
 }) => (
   <Container>
     <Helmet>
@@ -31,7 +33,7 @@ const HomePresenter: React.FunctionComponent<IProps> = ({
         }
       }}
     >
-      <button onClick={toggleMenu}>Open sidebar</button>
+      {!loading && <button onClick={toggleMenu}>Open sidebar</button>}
     </Sidebar>
   </Container>
 );

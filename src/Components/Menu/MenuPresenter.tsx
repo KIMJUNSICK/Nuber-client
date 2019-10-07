@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { userProfile } from "src/types/api";
 import styled from "../../typed-components";
 
 const Container = styled.div`
@@ -74,28 +75,41 @@ const ToggleDriving = styled<IToggleProps, any>("button")`
   cursor: pointer;
 `;
 
-const MenuPresenter: React.SFC = () => (
+interface IProps {
+  data?: userProfile;
+  loading: boolean;
+}
+
+const MenuPresenter: React.FunctionComponent<IProps> = ({
+  data: { GetMyProfile: { user = {} } = {} } = {},
+  loading
+}) => (
   <Container>
-    <Header>
-      <Grid>
-        <Link to={"/edit-account"}>
-          <Image
-            src={
-              "https://yt3.ggpht.com/-CTwXMuZRaWw/AAAAAAAAAAI/AAAAAAAAAAA/HTJy-KJ4F2c/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
-            }
-          />
-        </Link>
-        <Text>
-          <Name>Nicolas Serrano Arevalo</Name>
-          <Rating>4.5</Rating>
-        </Text>
-      </Grid>
-    </Header>
-    <SLink to="/trips">Your Trips</SLink>
-    <SLink to="/settings">Settings</SLink>
-    <ToggleDriving isDriving={true}>
-      {true ? "Stop driving" : "Start driving"}
-    </ToggleDriving>
+    {!loading && user && user.fullName && (
+      <React.Fragment>
+        <Header>
+          <Grid>
+            <Link to={"/edit-account"}>
+              <Image
+                src={
+                  user.profilePhoto ||
+                  "https://yt3.ggpht.com/-CTwXMuZRaWw/AAAAAAAAAAI/AAAAAAAAAAA/HTJy-KJ4F2c/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                }
+              />
+            </Link>
+            <Text>
+              <Name>{user.fullName}</Name>
+              <Rating>4.5</Rating>
+            </Text>
+          </Grid>
+        </Header>
+        <SLink to="/trips">Your Trips</SLink>
+        <SLink to="/settings">Settings</SLink>
+        <ToggleDriving isDriving={user.isDriving}>
+          {user.isDriving ? "Stop driving" : "Start driving"}
+        </ToggleDriving>
+      </React.Fragment>
+    )}
   </Container>
 );
 
